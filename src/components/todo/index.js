@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import Input from '../input';
+import ListItemEdit from '../list_item_edit';
+import ListItemVisualization from '../list_item_visualization';
 import './styles.scss';
 
 class ToDo extends Component {
@@ -11,15 +13,15 @@ class ToDo extends Component {
             onEdition: false,
             toDoList: this.loadInitialList(),
         }
-        this.handleUnload = this.handleUnload.bind(this);
+        this.handleUnload = this.handleUnload.bind(this)
     }
 
     componentDidMount() {
-        window.addEventListener('beforeunload', this.handleUnload);
+        window.addEventListener('beforeunload', this.handleUnload)
     }
 
     componentWillUnmount() {
-        window.removeEventListener('beforeunload', this.handleUnload);
+        window.removeEventListener('beforeunload', this.handleUnload)
     }
 
     loadInitialList() {
@@ -84,27 +86,20 @@ class ToDo extends Component {
                         return (
                             <li key={index}>
                                 {item.editing ?
-                                    <div className="to-do__list__item to-do__list__item__on-edit">
-                                        <div>
-                                            <input type="text" className="to-do__input" placeholder="Tarefa a ser realizada" value={this.state.editInput} onChange={event => this.handleUpdateInputChange(event)} />
-                                        </div>
-                                        <div className="to-do__list__item__button-wrapper">
-                                            <button className="to-do__button" onClick={() => this.handleSaveItemEdition(item)}>Salvar edição</button>
-                                            <button className="to-do__button to-do__cancel_button" onClick={() => this.handleCancelItemEdition(item)}>Cancelar edição</button>
-                                        </div>
-                                    </div>
+                                    <ListItemEdit
+                                        currentItem={item}
+                                        handleSaveChanges={() => this.handleSaveItemEdition(item)}
+                                        handleCancelChanges={() => this.handleCancelItemEdition(item)}
+                                        inputValue={this.state.editInput}
+                                        handleInputChange={event => this.handleUpdateInputChange(event)}
+                                    />
                                     :
-                                    <div className="to-do__list__item to-do__list__item__visualization">
-                                        <div>
-                                            <input type="checkbox" onClick={() => this.handleCheckItem(item)} checked={item.checked} />
-                                            <label>{item.value}</label>
-                                        </div>
-                                        <span>{item.date}</span>
-                                        <div className="to-do__list__item__button-wrapper">
-                                            <button className="to-do__button" onClick={() => this.handleEditItem(item)}>Editar item</button>
-                                            <button className="to-do__button" onClick={() => this.handleDeleteItem(item)}>Deletar item</button>
-                                        </div>
-                                    </div>
+                                    <ListItemVisualization
+                                        currentItem={item}
+                                        handleCheckInput={() => this.handleCheckItem(item)}
+                                        handleEditItem={() => this.handleEditItem(item)}
+                                        handleDeleteItem={() => this.handleDeleteItem(item)}
+                                    />
                                 }
                             </li>
                         )
@@ -115,4 +110,4 @@ class ToDo extends Component {
         )
     }
 }
-export default ToDo;
+export default ToDo
