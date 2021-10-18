@@ -1,0 +1,13 @@
+.to-do__input-wrapper {
+    width: 100%;
+    display: flex;
+
+    .to-do__input-wrapper__button {
+        background-color: #f5f5f5;
+        border: none;
+        border-radius: 0;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+    }
+}
