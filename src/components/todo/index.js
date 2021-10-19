@@ -30,8 +30,10 @@ class ToDo extends Component {
     }
 
     handleAddItem() {
-        const nowDate = new Date().toLocaleString()
-        this.setState({ ...this.state, toDoList: [...this.state.toDoList, { value: this.state.inputValue, checked: false, date: nowDate, editing: false }], inputValue: "" })
+        if (this.state.inputValue !== '') {
+            const nowDate = new Date().toLocaleString()
+            this.setState({ ...this.state, toDoList: [...this.state.toDoList, { value: this.state.inputValue, checked: false, date: nowDate, editing: false }], inputValue: "" })
+        }
     }
 
     handleCheckItem(itemToCheck) {
